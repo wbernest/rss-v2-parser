@@ -116,21 +116,20 @@ func CompareItems(firstRSS *Rss, secondRSS *Rss) []Item {
 		return itemList
 	}
 
-	for _, item := range smallerRSS.ItemList {
+	for _, item1 := range biggerRSS.ItemList {
 		exists := false
-		for _, oldItem := range biggerRSS.ItemList {
-			if len(item.Guid) > 0 && oldItem.Guid == item.Guid {
+		for _, item2 := range smallerRSS.ItemList {
+			if len(item1.Guid) > 0 && item1.Guid == item2.Guid {
 				exists = true
 				break
-			} else if item.PubDate == oldItem.PubDate && item.Title == oldItem.Title {
+			} else if item1.PubDate == item2.PubDate && item1.Title == item2.Title {
 				exists = true
 				break
 			}
 		}
 		if !exists {
-			itemList = append(itemList, item)
+			itemList = append(itemList, item1)
 		}
 	}
-
 	return itemList
 }
