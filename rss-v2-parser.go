@@ -225,8 +225,8 @@ type Enclosure struct {
 	Type   string `xml:"type,attr"`
 }
 
-// RssParseString will be used to parse strings and will return the Rss object
-func RssParseString(s string) (*RSSV2, error) {
+// ParseString will be used to parse strings and will return the Rss object
+func ParseString(s string) (*RSSV2, error) {
 	rss := RSSV2{}
 	if len(s) == 0 {
 		return &rss, nil
@@ -241,8 +241,8 @@ func RssParseString(s string) (*RSSV2, error) {
 	return &rss, nil
 }
 
-// RssParseURL will be used to parse a string returned from a url and will return the Rss object
-func RssParseURL(url string) (*RSSV2, string, error) {
+// ParseURL will be used to parse a string returned from a url and will return the Rss object
+func ParseURL(url string) (*RSSV2, string, error) {
 	byteValue, err := getContent(url)
 	if err != nil {
 		return nil, "", err
@@ -335,7 +335,7 @@ func CompareItemsBetweenOldAndNew(oldRSS *RSSV2, newRSS *RSSV2) []Item {
 
 // IsValidFeed checks feed to see if it is RSS v2
 func IsValidFeed(url string) bool {
-	_, err := getContent(url)
+	_, _, err := ParseURL(url)
 	if err == nil {
 		return true
 	}
