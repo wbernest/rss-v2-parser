@@ -332,3 +332,13 @@ func CompareItemsBetweenOldAndNew(oldRSS *RSSV2, newRSS *RSSV2) []Item {
 	}
 	return itemList
 }
+
+// IsValidFeed checks feed to see if it is RSS v2
+func IsValidFeed(url string) bool {
+	_, err := getContent(url)
+	if err == nil {
+		return true
+	}
+
+	return false
+}
