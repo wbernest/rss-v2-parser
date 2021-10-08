@@ -260,7 +260,13 @@ func ParseURL(url string) (*RSSV2, string, error) {
 }
 
 func getContent(url string) ([]byte, error) {
-	resp, err := http.DefaultClient.Get(url)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Accept", "application/rss+xml") // http://www.rssboard.org/rss-mime-type-application.txt
+	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return nil, err
 	}
